@@ -1,8 +1,11 @@
 const express= require('express')
 const mongoose=require('mongoose')
+const cors = require('cors'); 
 const bodyParser=require('body-parser')
 
 const app = express();
+app.use(cors());
+
 
 mongoose.connect('mongodb+srv://pratik16:pratik123@cluster0.msm9wp5.mongodb.net/Assign_Mentor',{
     useNewUrlParser: true,
