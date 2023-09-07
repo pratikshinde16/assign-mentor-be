@@ -5,6 +5,12 @@ const bodyParser=require('body-parser')
 
 const app = express();
 app.use(cors());
+const corsOptions = {
+  origin: 'https://assign-mentor-to-students.netlify.app/',
+  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+};
+app.use(cors(corsOptions));
+
 
 
 mongoose.connect('mongodb+srv://pratik16:pratik123@cluster0.msm9wp5.mongodb.net/Assign_Mentor',{
@@ -12,19 +18,22 @@ mongoose.connect('mongodb+srv://pratik16:pratik123@cluster0.msm9wp5.mongodb.net/
     useUnifiedTopology: true,
 })
 
+
 // Create MongoDB schemas and models
 const mentorSchema = new mongoose.Schema({
-    name: String,
-  });
-  const Mentor = mongoose.model('Mentor', mentorSchema);
-  
-  const studentSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    mentor: { type: mongoose.Schema.Types.ObjectId, ref: 'Mentor', default: null },
-    previousMentor: { type: mongoose.Schema.Types.ObjectId, ref: 'Mentor', default: null },
-  });
-  
-  const Student = mongoose.model('Student', studentSchema);
+  name: String,
+});
+const Mentor = mongoose.model('Mentor', mentorSchema);
+
+const studentSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  mentor: { type: mongoose.Schema.Types.ObjectId, ref: 'Mentor', default: null },
+  previousMentor: { type: mongoose.Schema.Types.ObjectId, ref: 'Mentor', default: null },
+});
+
+const Student = mongoose.model('Student', studentSchema);
+
+
   
   // Middleware to parse JSON data
   app.use(bodyParser.json());
@@ -51,14 +60,15 @@ const mentorSchema = new mongoose.Schema({
   // API to create a Student
   app.post('/api/students', async (req, res) => {
     try {
-      const { name } = req.body;
-      const student = new Student({ name });
+      const { name, mentor } = req.body;
+      const student = new Student({ name, mentor });
       await student.save();
       res.status(201).json(student);
     } catch (err) {
       res.status(500).json({ error: 'Failed to create Student' });
     }
   });
+  
   
 // API to fetch all available mentors
 app.get('/api/mentors', async (req, res) => {
