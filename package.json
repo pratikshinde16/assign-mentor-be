@@ -9,6 +9,7 @@
   },
   "keywords": [],
   "author": "",
+  "proxy": "https://assign-mentor-k96m.onrender.com",
   "license": "ISC",
   "engines": {
     "node": "14.20.1"

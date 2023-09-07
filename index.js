@@ -4,11 +4,13 @@ const cors = require('cors');
 const bodyParser=require('body-parser')
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+
 const corsOptions = {
-  origin: 'https://assign-mentor-to-students.netlify.app/',
+  origin: ['http://localhost:3001', 'https://assign-mentor-to-students.netlify.app'],
   optionsSuccessStatus: 200, // Some legacy browsers choke on 204
 };
+
 app.use(cors(corsOptions));
 
 
