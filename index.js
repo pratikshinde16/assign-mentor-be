@@ -93,6 +93,21 @@ app.get('/api/mentors', async (req, res) => {
     }
   });
   
+  // API to fetch all students (with or without mentors)
+  app.get('/api/students', async (req, res) => {
+    try {
+      const students = await Student.find({});
+      res.json(students);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to fetch students' });
+    }
+  });
+  
+  
+  
+
+
 
 // API to assign a student to a mentor
 app.post('/api/assign-mentor/:mentorId', async (req, res) => {
