@@ -15,6 +15,7 @@ app.use(cors(corsOptions));
 
 
 
+
 mongoose.connect('mongodb+srv://pratik16:pratik123@cluster0.msm9wp5.mongodb.net/Assign_Mentor',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -231,7 +232,7 @@ app.get('/api/student-mentor/:studentId', async (req, res) => {
   
   
   // Start the server
-  const port = 3000;
+  const port = 8000;
   app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
   });
